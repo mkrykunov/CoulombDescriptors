@@ -23,7 +23,7 @@ class KernelRidgeRegression:
 
       return y
 
-   def predict(self, X, X1, t1):
+   def predict(self, X, X1):
       if self.kernel == 'Gaussian':
          K1 = self.GaussianKernel2(X1, X)
       elif self.kernel == 'Laplacian':
