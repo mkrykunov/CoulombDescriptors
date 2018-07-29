@@ -48,7 +48,7 @@ def test():
    t_test = mat_T[0,test]
    t_test = np.reshape(t_test, (len(t_test), 1))
 
-   y_test = KRR_model.predict(X_train, X_test, t_test)
+   y_test = KRR_model.predict(X_train, X_test)
 
    err_test = np.sum(np.abs(y_test - t_test)) / len(t_test)
 
