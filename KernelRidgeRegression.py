@@ -76,7 +76,7 @@ class KernelRidgeRegression:
       m1 = X1.shape[0]
       K = np.zeros((m,m1))
 
-      const = 1.0 / self.sigma**2
+      const = 1.0 / self.sigma
 
       for i in range(m):
          tmp = np.exp(-const * np.sum(np.abs(X[i,:] - X1[:,:]), axis=1))
