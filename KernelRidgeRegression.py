@@ -41,8 +41,8 @@ class KernelRidgeRegression:
 
       S = np.dot(X, X.T)
       Sdiag = S.diagonal()
-      K0 = Sdiag[:,None] + Sdiag[None,:] - 2 * S
-      K = np.exp(-const * K0)
+      D = Sdiag[:,None] + Sdiag[None,:] - 2 * S
+      K = np.exp(-const * D)
 
       return K
 
@@ -59,16 +59,19 @@ class KernelRidgeRegression:
       return K
 
    def GaussianKernel2(self, X, X1):
-      m = X.shape[0]
+      m0 = X0.shape[0]
       m1 = X1.shape[0]
-      K = np.zeros((m,m1))
+      K = np.zeros((m0,m1))
 
       const = 1.0 / (2 * self.sigma**2)
 
-      for i in range(m):
-         tmp = np.exp(-const * np.sum(np.square(X[i,:] - X1[:,:]), axis=1))
-         K[i,:] = tmp
+      S0 = np.sum(np.multiply(X0, X0), axis=1)
+      S1 = np.sum(np.multiply(X1, X1), axis=1)
 
+      S = np.dot(X0, X1.T)
+      D = S0[:,None] + S1[None,:] - 2 * S
+      K = np.exp(-const * D)
+   
       return K
 
    def LaplacianKernel2(self, X, X1):
