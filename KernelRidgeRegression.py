@@ -58,7 +58,7 @@ class KernelRidgeRegression:
 
       return K
 
-   def GaussianKernel2(self, X, X1):
+   def GaussianKernel2(self, X0, X1):
       m0 = X0.shape[0]
       m1 = X1.shape[0]
       K = np.zeros((m0,m1))
