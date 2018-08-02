@@ -60,13 +60,17 @@ class CoulombDescriptor:
 
       Cmat = np.zeros((m,m))
 
+      S = np.dot(atom_xs, atom_xs.T)
+      Sdiag = S.diagonal()
+      D = np.sqrt(Sdiag[:,None] + Sdiag[None,:] - 2 * S)
+      np.fill_diagonal(D, 1.0)
+
+      Z_ij = np.outer(Zmat, Zmat)
+
+      Cmat = np.divide(Z_ij, D)
+
       for i in range(m):
          Cmat[i,i] = 0.5 * np.power(Zmat[i], 2.4)
-         for j in range(i):
-            r_ij = np.sqrt(np.sum(np.square(atom_xs[i,:] - atom_xs[j,:])))
-            tmp = Zmat[i] * Zmat[j] / r_ij
-            Cmat[i,j] = tmp
-            Cmat[j,i] = tmp
 
       return Cmat
 
